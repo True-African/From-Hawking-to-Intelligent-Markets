@@ -1,0 +1,15 @@
+pandas
+numpy
+scikit-learn
+xgboost
+statsmodels
+prophet
+torch
+matplotlib
+seaborn
+nbclient
+nbformat
+ipykernel
+requests
+openpyxl
+

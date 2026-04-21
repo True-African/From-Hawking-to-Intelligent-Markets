@@ -1,0 +1,46 @@
+# Python and notebooks
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# Jupyter/runtime/editor state
+.jupyter_runtime/
+.vscode/
+.idea/
+
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# Compiled paper: build locally; commit only when publication policy permits
+paper/*.pdf
+
+# Raw data and bulky external files
+data/*.csv
+data/*.dta
+data/*.xlsx
+data/*.xls
+data/*.zip
+data/*.geojson
+data/*.shp
+data/*.dbf
+data/*.shx
+data/*.prj
+data/EC_2023_CSV/
+
+# Local scratch files
+*.tmp
+*.bak
+*.DS_Store
+Thumbs.db
+
