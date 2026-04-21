@@ -1,68 +1,88 @@
 # Privacy-Preserving Market Analytics for Informal Urban Economies in Africa
 
-This repository contains the anonymized research artifacts for a Deep Learning Indaba 2026 submission on federated learning for informal market analytics in African cities.
+This repository contains the paper source, figures, and reproducibility notebook for a study of federated learning and scenario-based spatial planning for informal market analytics in African cities.
 
-The paper studies two linked questions:
+The work has two main components:
 
-1. Whether federated learning can support privacy-preserving market intelligence across distributed market clients.
-2. Whether scenario-based spatial optimization can help plan modular retail infrastructure for informal vendors without requiring vendors to surrender raw personal or transaction data.
+1. Federated market analytics for formalization prediction and food price forecasting.
+2. Scenario-based planning for modular retail infrastructure and district-level unit allocation.
 
-The empirical machine-learning results use leakage-controlled formalization prediction and temporal price forecasting experiments. The economic and deployment results are scenario-based estimates intended for policy simulation and pilot planning, not field-validated causal income effects.
+The machine-learning results are evaluated on observed datasets using leakage-controlled and temporal-split settings. The income and deployment analyses are scenario estimates under stated assumptions.
 
-## Repository Contents
+## Repository Structure
 
 ```text
 .
-├── paper/
-│   ├── FromHawking_DLIndaba2026.tex   # anonymized LaTeX source
-│   ├── references.bib                 # bibliography
-│   ├── ijcai26.sty                    # conference style needed to compile
-│   ├── named.bst                      # bibliography style needed to compile
-│   └── figures/                       # paper figures generated from experiments
-├── notebooks/
-│   └── Model.ipynb                    # cleaned notebook with outputs removed
-├── data/
-│   └── README.md                      # data manifest and acquisition notes
-├── requirements.txt                   # Python dependencies for rerunning analyses
-└── .gitignore                         # excludes raw data, build products, and local state
+|-- paper/
+|   |-- FromHawking_DLIndaba2026.tex
+|   |-- references.bib
+|   |-- ijcai26.sty
+|   |-- named.bst
+|   `-- figures/
+|       |-- federated_results.png
+|       |-- comparative_benchmark.png
+|       |-- economic_impact.png
+|       `-- spatial_optimization.png
+|-- notebooks/
+|   `-- Model.ipynb
+|-- data/
+|   `-- README.md
+|-- requirements.txt
+`-- README.md
 ```
 
-## What Is Included
+## Setup
 
-- Anonymized LaTeX source for the paper.
-- Figure assets required by the LaTeX file.
-- A cleaned notebook with cell outputs removed to avoid exposing local file paths or machine-specific state.
-- Reproducibility instructions for obtaining external datasets.
-
-## What Is Not Included
-
-Raw datasets are not included in this package. Some source datasets may have redistribution limits, large file sizes, or access terms that should be respected. In particular, this repository does not include:
-
-- World Bank Enterprise Survey microdata.
-- WFP food price CSV files.
-- WorldPop raster/ZIP files.
-- Full Rwanda Establishment Census spreadsheets or extracted raw tables.
-- Local virtual environments, Jupyter runtime files, LaTeX build artifacts, or editor settings.
-
-To reproduce the experiments, place the required raw files under `data/` using the filenames described in `data/README.md`.
-
-## Reproducing the Paper
-
-Install Python dependencies:
+Create a Python environment and install the required packages:
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run the notebook:
+On Windows PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+## Data
+
+Raw datasets are not stored in this repository. To rerun the notebook, place the required files in `data/` using the filenames listed in `data/README.md`.
+
+The main external datasets are:
+
+- Rwanda Establishment Census 2023.
+- World Bank Enterprise Survey, Rwanda 2023.
+- WFP food price and market data for Rwanda and Uganda.
+- WorldPop population data.
+- OpenStreetMap market and road data.
+- FinScope digital readiness indicators.
+
+## Running The Notebook
+
+Start Jupyter:
 
 ```bash
 jupyter notebook notebooks/Model.ipynb
 ```
 
-The notebook contains the analysis workflow and reviewer-revision cells used to produce leakage-controlled formalization results, price forecasting baselines, federated-learning summaries, and scenario sensitivity estimates.
+Run the notebook from top to bottom after placing the required data files in `data/`.
 
-To compile the paper:
+The notebook produces:
+
+- Leakage-controlled formalization prediction results.
+- Centralized and federated formalization baselines.
+- Price forecasting baselines and federated comparisons.
+- Economic sensitivity analysis for foot-traffic assumptions.
+- Figure files used in the paper.
+
+## Building The Paper
+
+Compile the LaTeX source from the `paper/` directory:
 
 ```bash
 cd paper
@@ -72,31 +92,18 @@ pdflatex -interaction=nonstopmode FromHawking_DLIndaba2026.tex
 pdflatex -interaction=nonstopmode FromHawking_DLIndaba2026.tex
 ```
 
-The compiled PDF is intentionally not committed by default. This avoids accidentally circulating a pre-publication paper from an identifiable public GitHub account during review.
+The generated PDF will appear in `paper/`.
 
-## Anonymity And Publication Note
+## Main Results Reported In The Paper
 
-The paper source currently uses `Anonymous Authors`. If this repository is made public before review decisions, it may compromise double-blind review even if the PDF itself is anonymized, because the GitHub owner can reveal author identity.
+- Formalization prediction is reported after removing registration-status variables and direct proxies.
+- Price forecasting is evaluated with temporal held-out splits.
+- Economic gains are presented as scenario estimates, not field-validated causal effects.
+- Spatial allocation results are model-based planning outputs for a 100-unit pilot scenario.
 
-Recommended practice:
+## Reproducibility Notes
 
-- Keep this repository private during review.
-- If an artifact must be shared during double-blind review, use an anonymous artifact repository or remove identifying metadata.
-- Add the compiled paper PDF publicly only after acceptance, after checking the conference preprint and anonymity policy.
-
-## Should The IJCAI-ECAI-26 Instructions Be Included?
-
-This package includes only the files required to compile the paper: `ijcai26.sty` and `named.bst`.
-
-Do not include the full IJCAI-ECAI formatting-instructions folder unless the license and conference instructions clearly allow redistribution. A cleaner approach is to cite or link to the official formatting instructions in the repository documentation and keep only the style files needed for reproducible compilation.
-
-## Evidence Boundary
-
-The paper separates empirical results from scenario estimates:
-
-- Formalization prediction is evaluated empirically on WBES data after removing registration-status leakage and direct proxies.
-- Price forecasting is evaluated empirically on WFP time-series data using temporal held-out splits.
-- Income gains, demand-pull multipliers, and spatial deployment results are scenario analyses under stated assumptions.
-
-This distinction is central to interpreting the contribution and should be preserved in future revisions.
+- Keep raw third-party datasets out of version control unless their license permits redistribution.
+- Keep notebook outputs cleared before committing if they contain local paths or machine-specific state.
+- Rebuild the paper after updating figures or tables.
 
